@@ -1,0 +1,15 @@
+.task {
+  border: 1px solid black;
+  padding: 5px;
+  width: fit-content;
+  min-width: 200px;
+  cursor: move;
+  border: 3px solid #666;
+  background-color: #ddd;
+  border-radius: .5em;
+  padding: 10px;
+}
+
+  .task.over {
+    border: 3px dotted #666;
+  }
