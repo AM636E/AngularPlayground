@@ -1,5 +1,10 @@
 <div class="task-container">
   <div class="task-list">
-    <todo-task *ngFor="let task of (tasks | async)" [task]="task"></todo-task>
+    <todo-task *ngFor="let task of (tasks | async)"
+               (dragStart)="onDragStart(task)"
+               (dragOver)="overTask = task"
+               (drop)="onTaskDrop()"
+               [task]="task">
+    </todo-task>
   </div>
 </div>

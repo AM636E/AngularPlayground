@@ -30,11 +30,14 @@ export class TodoTaskComponent {
   }
 
   onDragEnter(event: Event) {
-    this.over = true;
     this.dragOver.emit(this.task);
+    this.over = true;
   }
 
   onDrop(event: Event) {
+    event.preventDefault();
+    event.stopPropagation();
+
     this.drop.emit(this.task);
   }
 }

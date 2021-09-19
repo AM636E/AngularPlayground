@@ -1,3 +1,12 @@
+@keyframes over-margin {
+    from {
+        margin-top: 0;
+    }
+    to {
+        margin-top: 40px;
+    }
+}
+
 .task-list .task {
     margin-bottom: 5px;
 }
@@ -17,4 +26,5 @@
 
   .task.over {
     border: 3px dotted #666;
+    animation: 1s linear 0s over-margin;
   }

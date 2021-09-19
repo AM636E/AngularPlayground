@@ -1,12 +1,14 @@
-<div #taskNode
-     [class.over]="over"
-     (dragstart)="onDragStart($event)"
-     (dragend)="onDragEnd($event)"
-     (dragenter)="over = true"
-     (dragleave)="over = false"
-     (dragover)="$event.preventDefault()"
-     (drop)="onDrop($event)"
-     draggable="true"
-     class="task">
-  {{task.title}}
+<div>
+  <div #taskNode
+        [class.over]="over"
+       (dragstart)="onDragStart($event)"
+       (dragend)="onDragEnd($event)"
+       (dragenter)="onDragEnter($event)"
+       (dragleave)="over = false"
+       (dragover)="$event.preventDefault()"
+       (drop)="onDrop($event)"
+       draggable="true"
+       class="task">
+    <div>{{task.title}}</div>
+  </div>
 </div>
