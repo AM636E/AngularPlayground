@@ -1,3 +1,7 @@
+.task-list .task {
+    margin-bottom: 5px;
+}
+
 .task {
   border: 1px solid black;
   padding: 5px;
@@ -8,6 +12,7 @@
   background-color: #ddd;
   border-radius: .5em;
   padding: 10px;
+  margin-bottom: 5px;
 }
 
   .task.over {
