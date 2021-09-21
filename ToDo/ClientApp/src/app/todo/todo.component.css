@@ -1,14 +1,15 @@
 @keyframes over-margin {
-    from {
-        margin-top: 0;
-    }
-    to {
-        margin-top: 40px;
-    }
+  from {
+    height: 80px;
+  }
+
+  to {
+    height: 100px;
+  }
 }
 
 .task-list .task {
-    margin-bottom: 5px;
+  margin-bottom: 5px;
 }
 
 .task {
@@ -24,7 +25,19 @@
   margin-bottom: 5px;
 }
 
-  .task.over {
-    border: 3px dotted #666;
-    animation: 1s linear 0s over-margin;
+.task-wrapper {
+}
+
+  .task-wrapper.over {
+    animation: 0.2s linear 0s over-margin;
+    height: 100px;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: flex-end;
   }
+
+  .task-wrapper.over .task {
+    border: 3px dotted #666;
+  }
+
+

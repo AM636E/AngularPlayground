@@ -1,14 +1,15 @@
-<div>
-  <div #taskNode
-        [class.over]="over"
+<div class="task-wrapper"
+     [class.over]="over"
        (dragstart)="onDragStart($event)"
        (dragend)="onDragEnd($event)"
        (dragenter)="onDragEnter($event)"
-       (dragleave)="over = false"
-       (dragover)="$event.preventDefault()"
+       (dragleave)="onDragLeave($event)"
+       (dragover)="$event.preventDefault();"
        (drop)="onDrop($event)"
        draggable="true"
+     >
+  <div #taskNode
        class="task">
-    <div>{{task.title}}</div>
+    {{task.title}}
   </div>
 </div>

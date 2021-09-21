@@ -20,7 +20,10 @@ const DEFAULT_DATA = [
   { title: "test8" },
 ];
 
-const DEFAULT_ORDER = {};
+const DEFAULT_ORDER: Order = DEFAULT_DATA.reduce(
+  (acc, item, i) => ({ ...acc, [item.title]: i }),
+  {}
+);
 
 @Injectable({
   providedIn: 'root'
@@ -69,7 +72,7 @@ export class TodoService {
       [first.title]: index2,
       [second.title]: index1
     };
-    console.log(newOrder)
+
     this.orderSubject.next(newOrder);
   }
 }

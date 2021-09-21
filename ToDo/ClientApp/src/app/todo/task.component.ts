@@ -1,4 +1,5 @@
-import { Component, ElementRef, Input, Output, ViewChild, EventEmitter } from "@angular/core";
+import { Component, ElementRef, Input, Output, ViewChild, EventEmitter, OnInit } from "@angular/core";
+import { BehaviorSubject } from "rxjs";
 import { TodoTask } from "../services/todo.service";
 
 @Component({
@@ -6,7 +7,9 @@ import { TodoTask } from "../services/todo.service";
   templateUrl: "./task.component.html",
   styleUrls: ["./todo.component.css"]
 })
-export class TodoTaskComponent {
+export class TodoTaskComponent implements OnInit {
+  @ViewChild("taskNode")
+  taskNode: ElementRef<HTMLDivElement>;
 
   @Input() public task: TodoTask;
 
@@ -14,10 +17,14 @@ export class TodoTaskComponent {
   @Output() dragOver: EventEmitter<TodoTask> = new EventEmitter<TodoTask>();
   @Output() drop: EventEmitter<TodoTask> = new EventEmitter<TodoTask>();;
 
+  dragCounter: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   over: boolean = false;
-
-  @ViewChild("taskNode")
-  taskNode: ElementRef<HTMLDivElement>;
+  
+  ngOnInit(): void {
+    this.dragCounter.subscribe(value => {
+      this.over = value > 0;
+    });
+  }
 
   onDragStart(event: Event) {
     this.taskNode.nativeElement.style.opacity = "0.4";
@@ -31,7 +38,11 @@ export class TodoTaskComponent {
 
   onDragEnter(event: Event) {
     this.dragOver.emit(this.task);
-    this.over = true;
+    this.dragCounter.next(this.dragCounter.value + 1);
+  }
+
+  onDragLeave(event: Event) {
+    this.dragCounter.next(this.dragCounter.value - 1);
   }
 
   onDrop(event: Event) {
