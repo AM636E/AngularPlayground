@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
-import { TodoService, TodoTask, Order } from "../services/todo.service";
+import { StorageService } from "../services/storage.service";
+import { TodoService, TodoTask, Order, ORDER_KEY } from "../services/todo.service";
 
 
 @Component({
@@ -9,28 +10,27 @@ import { TodoService, TodoTask, Order } from "../services/todo.service";
   styleUrls: ["./todo.component.css"]
 })
 export class TodoComponent implements OnInit {
-  tasks: Observable<TodoTask[]>;
+  tasks$: Observable<TodoTask[]>;
   order: BehaviorSubject<Order> = new BehaviorSubject<Order>({});
 
   draggedTask: TodoTask;
   overTask: TodoTask;
 
-  constructor(private service: TodoService) {
-    this.tasks = service.tasks$;
+  constructor(private service: TodoService, private storageService: StorageService) {
+    this.tasks$ = service.getTasks$();
   }
 
   ngOnInit(): void {
-    this.tasks = this.service.tasks$;
+    this.storageService.get<Order>(ORDER_KEY).then(order => {
+      this.service.setOrder(order);
+    });
   }
 
   onDragStart(task: TodoTask) {
     this.draggedTask = task;
   }
 
-  onDragOver(task: TodoTask) {
-  }
-
   onTaskDrop() {
-    this.service.setTaskAfter(this.draggedTask, this.overTask);
+    this.service.switchTasks(this.draggedTask, this.overTask);
   }
 }

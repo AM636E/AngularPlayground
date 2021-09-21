@@ -28,6 +28,10 @@
 .task-wrapper {
 }
 
+  .dragged {
+      opacity: 0.4;
+  }
+
   .task-wrapper.over {
     animation: 0.2s linear 0s over-margin;
     height: 100px;

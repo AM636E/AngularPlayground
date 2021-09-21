@@ -15,11 +15,12 @@ export class TodoTaskComponent implements OnInit {
 
   @Output() dragStart: EventEmitter<TodoTask> = new EventEmitter<TodoTask>();
   @Output() dragOver: EventEmitter<TodoTask> = new EventEmitter<TodoTask>();
-  @Output() drop: EventEmitter<TodoTask> = new EventEmitter<TodoTask>();;
+  @Output() drop: EventEmitter<TodoTask> = new EventEmitter<TodoTask>();
 
   dragCounter: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   over: boolean = false;
-  
+  dragged: boolean;
+
   ngOnInit(): void {
     this.dragCounter.subscribe(value => {
       this.over = value > 0;
@@ -27,13 +28,13 @@ export class TodoTaskComponent implements OnInit {
   }
 
   onDragStart(event: Event) {
-    this.taskNode.nativeElement.style.opacity = "0.4";
+    this.dragged = true;
     this.dragStart.emit(this.task);
   }
 
   onDragEnd(event: Event) {
-    this.taskNode.nativeElement.style.opacity = "1";
     this.over = false;
+    this.dragged = false;
   }
 
   onDragEnter(event: Event) {
@@ -48,7 +49,7 @@ export class TodoTaskComponent implements OnInit {
   onDrop(event: Event) {
     event.preventDefault();
     event.stopPropagation();
-
+    this.dragCounter.next(0);
     this.drop.emit(this.task);
   }
 }
